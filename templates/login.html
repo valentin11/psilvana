@@ -1,0 +1,35 @@
+{% extends "bootstrap/base.html" %}
+{%  import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+<!-- Bootstrap core CSS-->
+<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- Custom styles for this template-->
+<link href="/static/css/sb-admin.min.css" rel="stylesheet">
+<!-- Personal style-->
+<link href="/static/css/my-style.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+Sistema de Gestión de Fichas
+{% endblock %}
+
+{% block content %}
+<body class="bg-dark">
+<div class="container">
+	<div class="card card-login mx-auto mt-5">
+		<div class="card-header">Login</div>
+		<div class="card-body">
+			<form method="POST" action="">
+				<dl>
+					{{ wtf.quick_form(form) }}
+					<input class="btn btn-primary btn-block" type="submit" value="Login">
+				</dl>
+		  </form>
+		</div>
+	</div>
+</div>
+</body>
+{% endblock %}

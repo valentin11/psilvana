@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{%  import "bootstrap/wtf.html" as wtf %}
+
+{% block head %}
+{{ super() }}
+  <!-- Page level plugin CSS-->
+  <link href="/static/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <div class="card mb-3">
+        <div class="card-header">
+          {% if mode == "ADD" %}
+            <i class="fa fa-user"></i> Agregar cliente</div>
+          {% endif %}
+          {% if mode == "UPD" %}
+            <i class="fa fa-user"></i> Editar cliente</div>
+          {% endif %}
+          {% if mode == "SEE" %}
+            <i class="fa fa-user"></i> Ver cliente</div>
+          {% endif %}
+        <div class="card-body">
+    			<div style="margin-bottom:25px">
+    				<h4>Datos generales</h4>
+    			</div>
+    			<form id="customerForm">
+            <dl>
+              {{ form.csrf_token }}
+              <div class="col-md-6">
+              {{ wtf.form_field(form.fullName) }}
+              {{ wtf.form_field(form.mobilePhone) }}
+              </div>
+            </dl>
+            <div style="margin-top:45px">
+              <div style="margin-bottom:25px">
+                {% if mode == "ADD" %}
+                <h4>Tintas <span style="float:right"><button id="but_add" title="Add" type="button" class="btn btn-light" ><i class="fa fa-plus-circle"></i></button></span></h4>
+                {% endif %}
+
+                {% if mode == "UPD" %}
+                <h4>Tintas <span style="float:right"><button id="but_add" title="Add" type="button" class="btn btn-light" ><i class="fa fa-plus-circle"></i></button></span></h4>
+                {% endif %}
+                {% if mode == "SEE" %}
+                <h4>Tintas</h4>
+                {% endif %}
+              </div>
+              <div class="table-responsive">
+                <table class="table" id="makeEditable">
+                  <thead>
+                    <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for tinta in tintas %}
+                      <tr>
+                        <td>{{tinta['description']}}</td>
+                        <td>{{tinta['date']}}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+            <div>
+              {% if mode == "ADD" %}
+              <button class="btn btn-primary" type="button" onclick="addCustomer();">Confirm</button>
+              {% endif %}
+              {% if mode == "UPD" %}
+              <button class="btn btn-primary" type="button" onclick="updateCustomer({{id}});">Confirm</button>
+              {% endif %}
+
+            </div>
+    			</form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+    <!-- Page level plugin JavaScript-->
+    <script src="/static/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/static/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/static/js/sb-admin-datatables.min.js"></script>
+	<!-- Custom editable table-->
+	<script src="/static/js/bootstable.min.js"></script>
+  <script src="/static/js/customer.js"></script>
+	<script>
+    if ({{ jsonMode | safe}} == "ADD" || {{ jsonMode | safe}} == "UPD" ){
+      $('#makeEditable').SetEditable({ $addButton: $('#but_add')});
+    }
+	</script>
+{% endblock %}

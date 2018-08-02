@@ -1,0 +1,15 @@
+p.help-block {
+	color: #a94442;
+}
+
+.has-error .form-control {
+	border-color: #a94442;
+}
+
+.has-error .control-label {
+	color: #a94442;
+}
+
+body.bg-dark {
+	background-color: #4b79a8;
+}
