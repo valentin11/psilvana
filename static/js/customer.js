@@ -36,7 +36,7 @@ function addCustomer(){
     url:'/customer/'
   })
   .done(function(data){
-    (data.error) ? console.log(error) : window.location.replace("http://localhost:5000/customers/")
+    (data.error) ? console.log(error) : window.location.href = '/customers/';
   });
 } // End addCustomer function
 
@@ -64,6 +64,6 @@ function updateCustomer(id){
     url:`/customer/${id}/`
   })
   .done(function(data){
-    (data.error) ? console.log(error) : window.location.replace("http://localhost:5000/customers/")
+    (data.error) ? console.log(error) : window.location.href = '/customers/';
   });
 } // End updateCustomer function

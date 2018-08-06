@@ -6,7 +6,7 @@ function deleteCustomer(){
     url:`/customer/${customerIdToDelete}/`
   })
   .done(function(data){
-    (data.error) ? console.log(error) : window.location.replace("http://localhost:5000/customers/")
+    (data.error) ? console.log(error) : window.location.href = '/customers/';
   });
 } // End deleteCustomer function
 
