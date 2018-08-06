@@ -1,46 +1,35 @@
-{% extends "layout2.html" %}
+{% extends "bootstrap/base.html" %}
+{%  import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+<!-- Bootstrap core CSS-->
+<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/static/css/sb-admin.min.css" rel="stylesheet">
+<!-- Personal style-->
+<link href="/static/css/my-style.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-<div class="card card-register mx-auto mt-5">
-  <div class="card-header">Register an Account</div>
-  <div class="card-body">
-    <form>
-      <div class="form-group">
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="exampleInputName">First name</label>
-            <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
-          </div>
-          <div class="col-md-6">
-            <label for="exampleInputLastName">Last name</label>
-            <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
-          </div>
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Register an Account</div>
+      <div class="card-body">
+        <form method="POST" action="">
+          <dl>
+            {{ wtf.quick_form(form) }}
+            <input class="btn btn-primary btn-block" type="submit" value="Register">
+          </dl>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/login">Login Page</a>
+          <a class="d-block small" href="">Forgot Password?</a>
         </div>
       </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
-      </div>
-      <div class="form-group">
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="exampleInputPassword1">Password</label>
-            <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
-          </div>
-          <div class="col-md-6">
-            <label for="exampleConfirmPassword">Confirm password</label>
-            <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
-          </div>
-        </div>
-      </div>
-      <a class="btn btn-primary btn-block" href="/login">Register</a>
-    </form>
-    <div class="text-center">
-      <a class="d-block small mt-3" href="/login">Login Page</a>
-      <a class="d-block small" href="/forgot-password">Forgot Password?</a>
     </div>
   </div>
-</div>
+</body>
 
 {% endblock %}
 

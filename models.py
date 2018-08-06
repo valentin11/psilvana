@@ -43,10 +43,12 @@ class Tinta(db.Model):
 class User(UserMixin,db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    fullname = db.Column(db.String(70))
     username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(20))
 
-    def __init__(self, username, password):
+    def __init__(self, fullname, username, password):
+        self.fullname = fullname
         self.username = username
         self.password = password
 

@@ -22,9 +22,6 @@ def page_login():
     return render_template('login.html', form=form)
 
 def page_customers():
-    #if (not current_user.is_authenticated):
-    #    return redirect(url_for('login'))
-
     customers = dataProvider.get_customers()
     return render_template('customers.html', customers=customers)
 
@@ -61,7 +58,19 @@ def page_delete_customer(id):
     return jsonify({"status": "OK"})
 
 def page_register():
-    return render_template('register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        fullname = form.fullname.data
+        username = form.username.data
+        password = form.password.data
+        strResult = dataProvider.new_user(fullname, username, password)
+        if (strResult == ""):
+            user = dataProvider.get_user(username, password)
+            login_user(user)
+            return redirect(url_for('customers'))
+        else:
+            username = form.username.errors.append(strResult)
+    return render_template('register.html', form=form)
 
 def page_logout():
     logout_user()

@@ -1,5 +1,6 @@
 from app import db
 from models import *
+from sqlalchemy.exc import IntegrityError
 
 class DataProvider:
     def __init__(self):
@@ -16,24 +17,44 @@ class DataProvider:
         return Customer.query.get(id)
 
     def new_customer(self, name, phone, strTintas):
-        customer = Customer(name, phone)
-        db.session.add(customer)
-        db.session.flush()
-        customer.tintas = self.makeArrayOfTintasObjFromStr(strTintas, customer.id)
-        db.session.commit()
+        try:
+            customer = Customer(name, phone)
+            db.session.add(customer)
+            db.session.flush()
+            customer.tintas = self.makeArrayOfTintasObjFromStr(strTintas, customer.id)
+            db.session.commit()
+            return ""
+        except IntegrityError:
+            db.session.rollback()
+            return "Something go wrong"
 
     def upd_customer(self, customerId, name, phone, tintas):
-        customer = Customer.query.get(customerId)
-        customer.name = name
-        customer.phone = phone
-        self.deleteAllCustomerTintasByCustomerId(customerId)
-        customer.tintas = self.makeArrayOfTintasObjFromStr(tintas, customerId)
-        db.session.commit()
+        try:
+            customer = Customer.query.get(customerId)
+            customer.name = name
+            customer.phone = phone
+            self.deleteAllCustomerTintasByCustomerId(customerId)
+            customer.tintas = self.makeArrayOfTintasObjFromStr(tintas, customerId)
+            db.session.commit()
+            return ""
+        except IntegrityError:
+            db.session.rollback()
+            return "Something go wrong"
 
     def delete_customer(self, customerId):
         customer = Customer.query.get(customerId)
         db.session.delete(customer)
         db.session.commit()
+
+    def new_user(self, fullname, username, password):
+        try:
+            user = User(fullname, username, password)
+            db.session.add(user)
+            db.session.commit()
+            return ""
+        except IntegrityError:
+            db.session.rollback()
+            return "This Username has already exist"
 
 
 # Aux Functions

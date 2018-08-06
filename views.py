@@ -31,7 +31,7 @@ def seeCustomer(id):
 def deleteCustomer(id):
     return page_delete_customer(id)
 
-@app.route('/register/', methods=['GET', 'PUT'])
+@app.route('/register/', methods=['GET', 'POST'])
 def register():
     return page_register()
 
