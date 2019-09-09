@@ -14,4 +14,4 @@ login_manager.init_app(app)
 from views import *
 
 if __name__ == '__main__':
-	app.run(debug=DEBUG)
+	app.run(debug=False)
